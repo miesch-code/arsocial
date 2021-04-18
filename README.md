@@ -1,63 +1,123 @@
-# Project 3 - Parstagram
+# ARSOCIAL
 
-Parstagram is a photo sharing app similar to Instagram but using Parse as its backend.
+## Table of Contents
+1. [Overview](#Overview)
+1. [Product Spec](#Product-Spec)
+1. [Wireframes](#Wireframes)
 
-Time spent: 6 hours spent in total
+## Overview
+### Description
+Creates an AR image with a virtual product so the user can see what it would look like in real life. Could be a shareable gallery with others with editable features
 
-## User Stories
+### App Evaluation
+- **Category:** AR imaging/camera app (marketing, consumer goods, social)
+- **Mobile:** This app would be primarily developed for mobile, uses camera
+- **Story:** Creates AR imaging and a platform to share the images The user can then decide to message this person and befriend them if wanted.
+- **Market:** Any individual could choose to use this app for image sharing and creation
+- **Habit:** This app could be used as frequently or infrequently as the user wanted depending on needs, and what exactly they're looking for before buying a product. Major incentive for businesses to participate in order to make product seem more available
+- **Scope:** First we would prompt the user to give AR permissions on the app and to take pictures. Then the user would choose the type of product(s) they want to try and is modelled onto themselves with AR. Then, the user has the option to save the picture in their gallery and share it with others for input.
 
-The following **required** functionality is completed:
 
-- [x] User can sign up to create a new account using Parse authentication.
-- [x] User can log in and log out of his or her account.
-- [x] The current signed in user is persisted across app restarts.
-- [x] User can take a photo, add a caption, and post it to "Instagram".
 
-The following **optional** features are implemented:
 
-- [ ] User sees app icon in home screen and styled bottom navigation view
-- [x] Style the feed to look like the real Instagram feed.
-- [ ] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse.
 
-The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+## Product Spec
+### 1. User Stories (Required and Optional)
 
-## Video Walkthrough
+**Required Must-have Stories**
 
-Here's a walkthrough of implemented user stories:
+- [ ] User logs in 
+- [ ] User has and marks their favorite products
+- [ ] User can take images and place AR item
+- [ ] User can post images
+- [ ] User can follow others
+- [ ] Profile pages for each user 
+- [ ] User can message images to others 
+- [ ] Settings (Accessibility, Notification, General, etc.)
 
-<img src='https://i.imgur.com/2aP3fE7.gif' title='Video Walkthrough' width='' alt='Video Walkthrough 1' />
+**Optional Nice-to-have Stories**
+- [ ] User can comments on others’ posts
+- [ ] Rating and/or thumbs up/thumbs down
 
-<img src='https://i.imgur.com/zQcTAYz.gif' title='Video Walkthrough' width='' alt='Video Walkthrough 2' />
+### 2. Screen Archetypes
+* Login
+* Register - User signs up or logs into their account (social media connection)
+  * Upon Download/Reopening of the application, the user is prompted to log in to gain access to their profile information to be properly matched with another person.
+* Profile - displays user profile picture, bio, and saved products
+* Create - user is prompted to create post based on products they’ve tried via AR
+* Stream - user’s homepage is a discover streaming page that displays products they would most likely be interested in
+* AR - user can choose product to test out in AR screen and then save/share
 
-<img src='https://i.imgur.com/QvrkNa4.gif' title='Video Walkthrough' width='' alt='Video Walkthrough 3' />
+### 3. Navigation
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+**Tab Navigation** (Tab to Screen)
 
-## Notes
+**Flow Navigation** (Screen to Screen)
+* Discover feed
+* Friends feed 
+* Camera AR placement view
+* Forced Log-in -> Account creation if no login is available
+* Product Selection -> Try-on (AR)
+* Profile -> Text field to be modified. 
+* Settings -> Toggle settings
 
-Describe any challenges encountered while building the app.
+Optional:
 
-Attempted indeterminate progress bar but app kept crashing in MainActivity so did not implement.
+* Discover (Top Choices)
+* Messaging Screen - Chat for users to communicate (direct 1-on-1)
+* Settings Screen
+   * Lets people change language, and app notification settings, etc
 
-## Open-source libraries used
+## Wireframes
 
-- [Android Async HTTP](https://github.com/codepath/CPAsyncHttpClient) - Simple asynchronous HTTP requests with JSON parsing
-- [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android
+### [BONUS] Digital Wireframes & Mockups
+<img src="https://i.imgur.com/z8Vdoyz.png">
 
-## License
+## Schema 
+### Models
+#### Post
 
-    Copyright 2021 Michelle Guo
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the user post (default field) |
+   | author        | Pointer to User| image author |
+   | image         | File     | image that user posts |
+   | caption       | String   | image caption by author |
+   | commentsCount | Number   | number of comments that has been posted to an image |
+   | ratingAvgCount    | Number   | average rating for post |
+   | createdAt     | DateTime | date when post is created (default field) |
+   | updatedAt     | DateTime | date when post is last updated (default field) |
+   
+### Networking
+#### List of network requests by screen
+   - Home Feed Screen
+      - (Read/GET) Query all posts where user is author
+         ```swift
+         let query = PFQuery(className:"Post")
+         query.whereKey("author", equalTo: currentUser)
+         query.order(byDescending: "createdAt")
+         query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) in
+            if let error = error { 
+               print(error.localizedDescription)
+            } else if let posts = posts {
+               print("Successfully retrieved \(posts.count) posts.")
+           // TODO: Do something with posts...
+            }
+         }
+         ```
+      - (Create/POST) Create a new rating on a post
+      - (Delete) Delete a rating on a post
+      - (Create/POST) Create a new comment on a post
+      - (Delete) Delete existing comment
+   - Create Post Screen
+      - (Create/POST) Create a new post object
+   - Profile Screen
+      - (Read/GET) Query logged in user object
+      - (Update/PUT) Update user profile image
+      - (Update/PUT) Update user interests, description and following
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+##### [OPTIONAL:] Existing API Endpoints
+##### APIs
+- Base URL - Back4App
+- AR API - https://developers.google.com/ar/reference/java/com/google/ar/core/AugmentedImage 
