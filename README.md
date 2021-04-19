@@ -27,12 +27,13 @@ Creates an AR image with a virtual product so the user can see what it would loo
 
 **Required Must-have Stories**
 
-- [ ] User logs in 
+- [x] User logs in 
 - [ ] User has and marks their favorite products
-- [ ] User can take images and place AR item
-- [ ] User can post images
+- [x] User can take images 
+- [ ] User can place AR item
+- [x] User can post images
 - [ ] User can follow others
-- [ ] Profile pages for each user 
+- [x] Profile pages for each user 
 - [ ] User can message images to others 
 - [ ] Settings (Accessibility, Notification, General, etc.)
 
@@ -72,6 +73,7 @@ Optional:
 ## Wireframes
 
 ### [BONUS] Digital Wireframes & Mockups
+<img src="https://i.imgur.com/pZW9ZlR.gif">
 <img src="https://i.imgur.com/z8Vdoyz.png">
 
 ## Schema 
