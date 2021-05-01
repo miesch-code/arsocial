@@ -28,18 +28,17 @@ Creates an AR image with a virtual product so the user can see what it would loo
 **Required Must-have Stories**
 
 - [x] User logs in 
-- [ ] User has and marks their favorite products
+- [x] User has and marks their favorite products
 - [x] User can take images 
-- [ ] User can place AR item
+- [x] User can place AR item
 - [x] User can post images
-- [ ] User can follow others
 - [x] Profile pages for each user 
-- [ ] User can message images to others 
-- [ ] Settings (Accessibility, Notification, General, etc.)
 
 **Optional Nice-to-have Stories**
 - [ ] User can comments on others’ posts
 - [ ] Rating and/or thumbs up/thumbs down
+- [ ] User can message images to others 
+- [ ] Settings (Accessibility, Notification, General)
 
 ### 2. Screen Archetypes
 * Login
