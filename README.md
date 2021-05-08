@@ -36,7 +36,7 @@ Creates an AR image with a virtual product so the user can see what it would loo
 
 **Optional Nice-to-have Stories**
 - [ ] User can comments on others’ posts
-- [ ] Rating and/or thumbs up/thumbs down
+- [x] Rating and/or thumbs up/thumbs down
 - [ ] User can message images to others 
 - [ ] Settings (Accessibility, Notification, General)
 
